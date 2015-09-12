@@ -2,13 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="co.vibl" >
 
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL"></uses-permission>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/ViblTheme"
+        android:name="co.vibl.ViblApplication">
         <activity
-            android:name=".VibeRecorderActivity"
+            android:name=".vibe.recorder.VibeActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
