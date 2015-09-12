@@ -37,7 +37,7 @@ public class Vibe {
 
     public float percentage() {
         if(duration > 0) {
-            return getEstimatedPlaybackPosition() / (float) duration;
+            return Math.min(Math.max(getEstimatedPlaybackPosition() / (float) duration, 0), 100);
         }
         return 0;
     }

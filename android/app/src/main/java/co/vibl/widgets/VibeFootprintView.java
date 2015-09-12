@@ -58,8 +58,6 @@ public class VibeFootprintView extends View {
 
             Canvas cacheCanvas = new Canvas(bitmap);
 
-            paint.setColor(Color.BLUE);
-
             int vibeSize = vibe.getFootprint().length;
             int height = getMeasuredHeight();
             int width = getMeasuredWidth();
@@ -74,10 +72,18 @@ public class VibeFootprintView extends View {
                 }
 
                 value = lastKnownValue;
+                float percentage = value / 100f;
                 int left = Math.round((i * width) / (float) vibeSize);
-                int top = Math.round(height - (height * (value / 100f)));
+                int top = 0; //Math.round(height - (height * percentage));
                 int right = left + widthPart;
                 int bottom = height;
+
+                int red = Math.round(29 + (226 * percentage));
+                int green = Math.round(percentage < 0.65 ? (26 + 6 * (percentage / 0.65f)) : (32 + 180 * ((percentage - 0.65f) / 0.35f)));
+                int blue = Math.round(percentage < 0.4 ? (33 + 43 * (percentage / 0.4f)) : (76 - (76 * ((percentage - 0.4f) / 0.6f))));
+
+                paint.setARGB(255, red, green, blue);
+
                 cacheCanvas.drawRect(left, top, right, bottom, paint);
             }
 
