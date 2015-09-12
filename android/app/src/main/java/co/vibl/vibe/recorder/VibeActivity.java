@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -18,10 +19,12 @@ import co.vibl.utils.Vibe;
 import co.vibl.vibe.recorder.events.ResumeEvent;
 import co.vibl.vibe.recorder.events.StartEvent;
 import co.vibl.vibe.recorder.events.VibeShiftEvent;
+import co.vibl.vibe.recorder.states.EndState;
 import co.vibl.vibe.recorder.states.InitState;
 import co.vibl.vibe.recorder.states.PausedState;
 import co.vibl.vibe.recorder.states.RecordingState;
 import co.vibl.vibe.recorder.states.StartState;
+import co.vibl.widgets.VibeFootprintView;
 
 public class VibeActivity extends AppCompatActivity implements StatefulActivity {
     private State currentState;
@@ -30,11 +33,13 @@ public class VibeActivity extends AppCompatActivity implements StatefulActivity 
     private State startState;
     private State recordingState;
     private State pauseState;
+    private State endState;
 
     private Button startVibeButton;
     private Button resumeVibeButton;
     private View vibeSensorAreaView;
     private View trackPositionView;
+    private VibeFootprintView vibeFootprintView;
 
     private Vibe vibe;
 
@@ -56,15 +61,19 @@ public class VibeActivity extends AppCompatActivity implements StatefulActivity 
         startState = new StartState();
         recordingState = new RecordingState();
         pauseState = new PausedState();
+        endState = new EndState();
 
         startVibeButton = (Button) findViewById(R.id.startVibeButton);
         resumeVibeButton = (Button) findViewById(R.id.resumeVibeButton);
         vibeSensorAreaView = findViewById(R.id.vibeSensorArea);
         trackPositionView = findViewById(R.id.trackPosition);
+        vibeFootprintView = (VibeFootprintView) findViewById(R.id.vibeFootprint);
 
         startVibeButton.setOnTouchListener(new StartEvent(this));
         resumeVibeButton.setOnTouchListener(new ResumeEvent(this));
         vibeSensorAreaView.setOnTouchListener(new VibeShiftEvent(this));
+
+        vibeFootprintView.setVibe(vibe);
 
         initState.enter(this);
     }
@@ -117,6 +126,10 @@ public class VibeActivity extends AppCompatActivity implements StatefulActivity 
         ((PausedState) pauseState).enter(this, event);
     }
 
+    public void endVibe() {
+        endState.enter(this);
+    }
+
     public State getRecordingState() {
         return recordingState;
     }
@@ -127,5 +140,9 @@ public class VibeActivity extends AppCompatActivity implements StatefulActivity 
 
     public View getTrackPositionView() {
         return trackPositionView;
+    }
+
+    public VibeFootprintView getVibeFootprintView() {
+        return vibeFootprintView;
     }
 }

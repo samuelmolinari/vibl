@@ -6,6 +6,7 @@ import android.util.Log;
  * Created by Samuel on 12/09/15.
  */
 public class Vibe {
+    private Music music;
     private long duration;
     private long position;
     private byte[] footprint;
@@ -59,5 +60,13 @@ public class Vibe {
     public void setPlaybackPosition(long playbackPosition) {
         position = playbackPosition;
         activate();
+    }
+
+    public Music getMusic() {
+        return music;
+    }
+
+    public void setMusic(Music music) {
+        this.music = music;
     }
 }

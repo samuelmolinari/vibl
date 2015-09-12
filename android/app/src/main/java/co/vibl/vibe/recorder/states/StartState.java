@@ -28,6 +28,7 @@ public class StartState extends AbstractVibeState {
             @Override
             public void onConsume(Music music) {
                 getVibeActivity().getVibe().setDuration(music.getDuration());
+                getVibeActivity().getVibe().setMusic(music);
                 getVibeActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

@@ -33,11 +33,19 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
-        <FrameLayout
-            android:layout_width="2dp"
+        <co.vibl.widgets.VibeFootprintView
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/material_blue_grey_950"
-            android:layout_marginLeft="0dp"
+            android:id="@+id/vibeFootprint"
+            android:background="@color/background_material_dark"
+            android:gravity="bottom" />
+
+        <FrameLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/primary_text_default_material_dark"
             android:id="@+id/trackPosition"></FrameLayout>
+
     </FrameLayout>
 </LinearLayout>
