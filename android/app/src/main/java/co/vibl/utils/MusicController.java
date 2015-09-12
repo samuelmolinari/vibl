@@ -26,31 +26,10 @@ public class MusicController {
     public static MusicController getInstance() {
         return instance;
     }
-
-    private BroadcastReceiver broadcastReceiver;
     private Queue<Callback> callbacks;
 
     private MusicController() {
         callbacks = new LinkedList();
-        broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if(!callbacks.isEmpty()) {
-                    Music music = new Music(intent);
-                    int toConsume = callbacks.size();
-                    Iterator<Callback> iterator = callbacks.iterator();
-
-                    while (toConsume > 0 && iterator.hasNext()) {
-                        Callback callback = iterator.next();
-                        if(callback.isConsumable(music)) {
-                            callback.onConsume(music);
-                            callbacks.poll();
-                        }
-                        toConsume--;
-                    }
-                }
-            }
-        };
 
         IntentFilter iF = new IntentFilter();
 //        iF.addAction("com.android.music.metachanged");
@@ -72,7 +51,7 @@ public class MusicController {
         iF.addAction("com.spotify.music.playbackstatechanged");
         iF.addAction("com.spotify.music.queuechanged");
 
-        ViblApplication.getInstance().registerReceiver(broadcastReceiver, iF);
+        ViblApplication.getInstance().registerReceiver(new MusicBroadcastReceiver(callbacks), iF);
     }
 
     public void rewind(Callback callback) {

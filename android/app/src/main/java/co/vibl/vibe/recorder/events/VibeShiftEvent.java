@@ -41,7 +41,8 @@ public class VibeShiftEvent extends AbstractVibeEvent implements View.OnTouchLis
     }
 
     private void vibeShift(float x, float y) {
-        Log.v("Percentage", getVibeActivity().getVibe().percentage() + "");
-        getVibeActivity().getVibe().stamp((byte) 0);
+        int height = getVibeActivity().getVibeSensorAreaView().getMeasuredHeight();
+        byte value = (byte) (((height - y) / height) * 100);
+        getVibeActivity().getVibe().stamp(value);
     }
 }

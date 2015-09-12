@@ -45,4 +45,13 @@ public class Music {
     public String getTrack() {
         return track;
     }
+
+    public String toString() {
+        return  "artist: "              + getArtist()           + " | " +
+                "album: "               + getAlbum()            + " | " +
+                "track: "               + getTrack()            + " | " +
+                "duration: "            + getDuration()         + " | " +
+                "playbackPosition: "    + getPlaybackPosition() + " | " +
+                "playing: "             + isPlaying();
+    }
 }

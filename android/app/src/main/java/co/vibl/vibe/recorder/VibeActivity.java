@@ -34,6 +34,7 @@ public class VibeActivity extends AppCompatActivity implements StatefulActivity 
     private Button startVibeButton;
     private Button resumeVibeButton;
     private View vibeSensorAreaView;
+    private View trackPositionView;
 
     private Vibe vibe;
 
@@ -59,6 +60,7 @@ public class VibeActivity extends AppCompatActivity implements StatefulActivity 
         startVibeButton = (Button) findViewById(R.id.startVibeButton);
         resumeVibeButton = (Button) findViewById(R.id.resumeVibeButton);
         vibeSensorAreaView = findViewById(R.id.vibeSensorArea);
+        trackPositionView = findViewById(R.id.trackPosition);
 
         startVibeButton.setOnTouchListener(new StartEvent(this));
         resumeVibeButton.setOnTouchListener(new ResumeEvent(this));
@@ -99,6 +101,10 @@ public class VibeActivity extends AppCompatActivity implements StatefulActivity 
         return resumeVibeButton;
     }
 
+    public View getVibeSensorAreaView() {
+        return vibeSensorAreaView;
+    }
+
     public void startVibe() {
         startState.enter(this);
     }
@@ -117,5 +123,9 @@ public class VibeActivity extends AppCompatActivity implements StatefulActivity 
 
     public Vibe getVibe() {
         return vibe;
+    }
+
+    public View getTrackPositionView() {
+        return trackPositionView;
     }
 }
