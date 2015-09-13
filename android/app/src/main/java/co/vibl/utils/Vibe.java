@@ -1,5 +1,6 @@
 package co.vibl.utils;
 
+import android.graphics.Color;
 import android.util.Log;
 
 /**
@@ -23,7 +24,7 @@ public class Vibe {
 
     public void stamp(long position, byte value) {
         if(isReady()) {
-            footprint[(int) position] = value;
+            footprint[(int) position] = (byte) Math.min(Math.max(value, 0), 100);
         }
     }
 
@@ -68,5 +69,14 @@ public class Vibe {
 
     public void setMusic(Music music) {
         this.music = music;
+    }
+
+    public static int computeValueColor(byte value) {
+        float percentage = value / 100f;
+        int red = (int) Math.floor(29 + (226 * percentage));
+        int green = (int) Math.floor(percentage < 0.65 ? (26 + 6 * (percentage / 0.65f)) : (32 + 180 * ((percentage - 0.65f) / 0.35f)));
+        int blue = (int) Math.floor(percentage < 0.4 ? (33 + 43 * (percentage / 0.4f)) : (76 - (76 * ((percentage - 0.4f) / 0.6f))));
+
+        return Color.argb(255, red, green, blue);
     }
 }
