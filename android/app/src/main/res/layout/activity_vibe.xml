@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/vibeFootprint"
-            android:background="@color/background_material_dark"
+            android:background="@color/primary_text_default_material_dark"
             android:gravity="bottom" />
 
         <FrameLayout

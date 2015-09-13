@@ -1,6 +1,7 @@
 package co.vibl.utils;
 
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 
 /**
@@ -24,7 +25,7 @@ public class Vibe {
 
     public void stamp(long position, byte value) {
         if(isReady()) {
-            footprint[(int) position] = (byte) Math.min(Math.max(value, 0), 100);
+            footprint[(int) position] = (byte) Math.min(Math.max(value, 0), 101);
         }
     }
 
@@ -78,5 +79,13 @@ public class Vibe {
         int blue = (int) Math.floor(percentage < 0.4 ? (33 + 43 * (percentage / 0.4f)) : (76 - (76 * ((percentage - 0.4f) / 0.6f))));
 
         return Color.argb(255, red, green, blue);
+    }
+
+    public static GradientDrawable computeValueGradient(byte value) {
+        GradientDrawable gd = new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[] {computeValueColor((byte) Math.min(value + 20, 100)) ,computeValueColor((byte) Math.min(Math.max(value, 0), 100))});
+
+        return gd;
     }
 }

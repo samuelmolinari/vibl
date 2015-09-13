@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import co.vibl.utils.MusicController;
+import co.vibl.utils.Vibe;
 import co.vibl.vibe.recorder.VibeActivity;
 
 /**
@@ -44,5 +45,6 @@ public class VibeShiftEvent extends AbstractVibeEvent implements View.OnTouchLis
         int height = getVibeActivity().getVibeSensorAreaView().getMeasuredHeight();
         byte value = (byte) (((height - y) / height) * 100);
         getVibeActivity().getVibe().stamp(value);
+        getVibeActivity().getVibeSensorAreaView().setBackground(Vibe.computeValueGradient(value));
     }
 }
